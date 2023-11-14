@@ -1,0 +1,72 @@
+@{
+    ViewData["Title"] = "Add Menu Item";
+}
+
+<form class="text-center" asp-action="AddMenuSection" asp-controller="Menu" asp-route-BranchName="@ViewBag.BranchName" method="post">
+    <h2 class="h2 mb-5">Add Menu Section</h2>
+    <div class="row">
+        <div class="col-lg-6 col-12">
+            <div class="input-group mb-3">
+                <div class="form-floating w-100">
+                    <input class="form-control" name="name" type="text" placeholder="name" />
+                    <label>Name</label>
+                    <p class="text-danger w-100 mt-1 d-block">@Html.ValidationMessage("name")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12">
+            <div class="input-group mb-3">
+                <div class="form-floating w-100">
+                    <input class="form-control" name="desc" type="text" placeholder="desc" />
+                    <label>Description</label>
+                    <p class="text-danger w-100 mt-1 d-block">@Html.ValidationMessage("desc")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 menu-items">
+            <div class="d-flex w-100 align-items-center mb-5" style="gap:15px;">
+                <h4>Items</h4>
+                <button type="button" class="btn btn-success menu-items-addBtn">+</button>
+            </div>
+            <div class="row menu-items-row" data-count="1">
+                <div class="col-12" id="item-0">
+                    <div class="row menu-item-row justify-content-between px-5">
+                        <div class="col-lg-3 col-6">
+                            <div class="input-group mb-3">
+                                <div class="form-floating w-100">
+                                    <input class="form-control" name="items[0].Name" type="text" placeholder="name" />
+                                    <label>Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="input-group mb-3">
+                                <div class="form-floating w-100">
+                                    <input class="form-control" name="items[0].Desc" type="text" placeholder="desc" />
+                                    <label>Description</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="input-group mb-3">
+                                <div class="form-floating w-100">
+                                    <input class="form-control" name="items[0].Price" type="number"
+                                        placeholder="price" />
+                                    <label>Price</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1 pt-2">
+                            <button type="button" class="btn btn-danger menu-items-removeBtn" data-target="#item-0">-</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Add</button>
+</form>
+
+@section Scripts{
+<script src="/js/menuItems.js"></script>
+}

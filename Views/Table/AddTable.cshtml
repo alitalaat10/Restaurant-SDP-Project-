@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Add Menu Item";
+}
+
+<form class="text-center" asp-action="AddTable" asp-controller="Table" asp-route-BranchName="@ViewBag.BranchName" method="post">
+    <h2 class="h2 mb-5">Add Table</h2>
+    <div class="form-group">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-12">
+            <div class="input-group mb-3">
+                <div class="form-floating w-100">
+                    <input class="form-control" name="Seats" type="number" placeholder="Seats" />
+                    <label>Seats</label>
+                    <p class="text-danger text-start w-100 mt-1 d-block">@Html.ValidationMessage("Seats")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12">
+            <div class="input-group mb-3">
+                <div class="form-floating w-100">
+                    <select class="form-select" name="Position" type="text" placeholder="Position">
+                        <option hidden class="empty-option"></option>
+                        <option value="0">Indoor</option>
+                        <option value="1">Outdoor</option>
+                    </select>
+                    <label>Position</label>
+                    <p class="text-danger text-start w-100 mt-1 d-block">@Html.ValidationMessage("Position")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Add</button>
+</form>

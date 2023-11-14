@@ -1,0 +1,50 @@
+@model design_pattern.Models.Tables.Table
+@{
+    ViewData["Title"] = "Reserve Table";
+    var now = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+<form class="text-center" asp-action="ReserveTable" asp-controller="Reservation" asp-route-BranchName="@ViewBag.BranchName" asp-route-TableId="@ViewBag.TableId" method="post">
+    <h2 class="h2 mb-5">Reserve Table</h2>
+    @Html.HiddenFor(x=>x.Number)
+    <div class="form-group">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-12">
+            <div class="input-group mb-3">
+                <input class="form-control" style="padding-top:1.625rem" name="ReservationDate" type="datetime-local" placeholder="ReservationDate" min="@now" step="1" />
+                <label class="text-start position-absolute" style="z-index: 3; opacity: .65; padding: 1rem 0; transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);">Reservation Date *</label>
+                <p class="text-danger w-100 mt-1 d-block">@Html.ValidationMessage("ReservationDate")</p>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12">
+            <div class="input-group mb-3">
+                <div class="form-floating w-100">
+                    <input class="form-control" name="CustomerName" placeholder="Customer" />
+                    <label>Customer *</label>
+                    <p class="text-danger w-100 mt-1 d-block">@Html.ValidationMessage("CustomerName")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12">
+            <div class="input-group mb-3">
+                <div class="form-floating w-100">
+                    <input class="form-control" name="CustomerEmail" placeholder="Customer" />
+                    <label>Customer Email</label>
+                    <p class="text-danger w-100 mt-1 d-block">@Html.ValidationMessage("CustomerEmail")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12">
+            <div class="input-group mb-3">
+                <div class="form-floating w-100">
+                    <input class="form-control" name="CustomerPhone" placeholder="Customer" />
+                    <label>Customer Phone</label>
+                    <p class="text-danger w-100 mt-1 d-block">@Html.ValidationMessage("CustomerPhone")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Reserve</button>
+</form>

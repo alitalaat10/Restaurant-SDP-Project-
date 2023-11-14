@@ -1,0 +1,70 @@
+@{
+    ViewData["Title"] = "Add Credit ";
+    var minTime = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+<form class="text-center" asp-action="CreditPay" asp-route-BranchName="@ViewBag.BranchName"
+    asp-route-resId="@ViewBag.Res.Id" asp-controller="Payments" method="post">
+    <div>
+        <h2 class="h2 mb-5"> Credit Card method</h2>
+        <div class="card text-center mb-5">
+            <div class="card-header">
+                Receipt
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Total Price <span style="font-weight: 900;">@ViewBag.Order.TotalPrice EGP</span>
+                </h5>
+                <p class="card-text">Please fill in the form below</p>
+                @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="input-group mb-3">
+                    <div class="form-floating w-100">
+                        <input class="form-control" name="customerName" value="@ViewBag.Res.CustomerName" type="text"
+                            placeholder="name" />
+                        <label>Name</label>
+                        <p class="text-danger w-100 mt-1 d-block">@Html.ValidationMessage("name")</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="input-group mb-3">
+                    <div class="form-floating w-100">
+                        <input class="form-control" name="cardNumber" type="text" placeholder="cardNumber" />
+                        <label>CardNumber</label>
+                        <p class="text-danger w-100 mt-1 d-block">@Html.ValidationMessage("cardNumber")</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="input-group mb-3">
+                    <div class="form-floating w-100">
+                        <input class="form-control" name="cvv" type="text" placeholder="cvv" />
+                        <label>Cvv</label>
+                        <p class="text-danger w-100 mt-1 d-block">@Html.ValidationMessage("cvv")</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="input-group mb-3">
+                    <div class="form-floating w-100">
+                        <input class="form-control" name="dateOfExpire" type="date" min="@minTime"
+                            placeholder="dateOfExpire" />
+                        <label>DateOfExpire</label>
+                        <p class="text-danger w-100 mt-1 d-block">@Html.ValidationMessage("dateOfExpire")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Confirm</button>
+        <a asp-action="Index" asp-controller="Reservation" asp-route-CheckOut="true"
+            asp-route-BranchName="@ViewBag.BranchName" class="btn btn-warning">Cancel</a>
+
+    </div>
+</form>
+
+@section Scripts{
+<script src="/js/menuItems.js"></script>
+}

@@ -1,0 +1,79 @@
+@model design_pattern.Models.Menu.MenuSection
+@{
+    ViewData["Title"] = "Add Menu Item";
+}
+
+<form class="text-center" asp-action="EditMenuSection" asp-controller="Menu" asp-route-id="@Model.Id" asp-route-BranchName="@ViewBag.BranchName" method="post">
+    <h2 class="h2 mb-5">Edit Menu Section</h2>
+    <div class="row">
+        <div class="col-lg-6 col-12">
+            <div class="input-group mb-3">
+                <div class="form-floating w-100">
+                    <input class="form-control" name="name" type="text" placeholder="name" value="@Model.Name" />
+                    <label>Name</label>
+                    <p class="text-danger w-100 mt-1 d-block">@Html.ValidationMessage("name")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12">
+            <div class="input-group mb-3">
+                <div class="form-floating w-100">
+                    <input class="form-control" name="desc" type="text" placeholder="desc" value="@Model.Desc" />
+                    <label>Description</label>
+                    <p class="text-danger w-100 mt-1 d-block">@Html.ValidationMessage("desc")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 menu-items">
+            <div class="d-flex w-100 align-items-center mb-5" style="gap:15px;">
+                <h4>Items</h4>
+                <button type="button" class="btn btn-success menu-items-addBtn">+</button>
+            </div>
+            <div class="row menu-items-row" data-count="@(Model.Items.Count)">
+                @for (var i = 0; i < Model.Items.Count; i++)
+                {
+                    <div class="col-12" id="item-@i">
+                        <div class="row menu-item-row justify-content-between px-5">
+                            <div class="col-lg-3 col-6">
+                                <input name="items[@i].Id" type="hidden" value="@Model.Items[i].Id" />
+                                <div class="input-group mb-3">
+                                    <div class="form-floating w-100">
+                                        <input class="form-control" name="items[@i].Name" type="text" placeholder="name"
+                                        value="@Model.Items[i].Name" />
+                                        <label>Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-6">
+                                <div class="input-group mb-3">
+                                    <div class="form-floating w-100">
+                                        <input class="form-control" name="items[@i].Desc" type="text" placeholder="desc"
+                                        value="@Model.Items[i].Desc" />
+                                        <label>Description</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-6">
+                                <div class="input-group mb-3">
+                                    <div class="form-floating w-100">
+                                        <input class="form-control" name="items[@i].Price" type="number" placeholder="price"
+                                        value="@Model.Items[i].Price" />
+                                        <label>Price</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1 pt-2">
+                                <button type="button" class="btn btn-danger menu-items-removeBtn" data-target="#item-@i">-</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Edit</button>
+</form>
+
+@section Scripts{
+<script src="/js/menuItems.js"></script>
+}

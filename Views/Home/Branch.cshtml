@@ -1,0 +1,128 @@
+@model design_pattern.Models.Branches.Branch
+@using design_pattern.Models.Tables
+
+
+
+<div class="container pt-5">
+    <h1 class="mb-5">
+        @if(ViewBag.Worker != null){
+            <a class="btn btn-outline-light text-dark " style="width: fit-content;" asp-controller="Home" asp-route-BranchName="@Model.Name" asp-action="Branch">
+                <span class="h2" style="font-weight: 800; line-height: 0;">&lt;</span>
+            </a>
+        } @Model.Name
+    </h1>
+    <div class="d-flex Branch-Cards" style="gap: 15px">
+        @{
+            if (ViewBag.Worker == "Manager")
+            {
+                <a asp-controller="Menu" asp-route-BranchName="@Model.Name" asp-action="MenuSections">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Menu</h4>
+                        </div>
+                    </div>
+                </a>
+                <a asp-controller="Workers" asp-route-BranchName="@Model.Name" asp-action="ViewWorkers">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Workers</h4>
+                        </div>
+                    </div>
+                </a>
+            }
+            else if (ViewBag.Worker == "Receptionist")
+            {
+                <a asp-controller="Table" asp-action="Index" asp-route-BranchName="@Model.Name">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Tables</h4>
+                        </div>
+                    </div>
+                </a>
+                <a asp-controller="Reservation" asp-action="Index" asp-route-BranchName="@Model.Name" asp-route-Waiting="true">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Reservations to Check In</h4>
+                        </div>
+                    </div>
+                </a>
+            }
+            else if (ViewBag.Worker == "Chef")
+            {
+                <a asp-controller="Order" asp-route-BranchName="@Model.Name" asp-action="Index" asp-route-Unfinished="true">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Orders</h4>
+                        </div>
+                    </div>
+                </a>
+            }
+            else if (ViewBag.Worker == "Cachier")
+            {
+                <a asp-controller="Reservation" asp-action="Index" asp-route-BranchName="@Model.Name" asp-route-CheckOut="true">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Tables To CheckOut</h4>
+                        </div>
+                    </div>
+                </a>
+                <a asp-controller="Payments" asp-route-BranchName="@Model.Name" asp-action="Index">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Payments</h4>
+                        </div>
+                    </div>
+                </a>
+            }else if(ViewBag.Worker == "Waiter"){
+                <a asp-controller="Reservation" asp-action="Index" asp-route-BranchName="@Model.Name" asp-route-InSeats="true">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Checked In Tables</h4>
+                        </div>
+                    </div>
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Home" asp-route-BranchName="@Model.Name" asp-action="Branch" asp-route-Worker="Manager">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Manager</h4>
+                        </div>
+                    </div>
+                </a>
+                <a asp-controller="Home" asp-route-BranchName="@Model.Name" asp-action="Branch" asp-route-Worker="Receptionist">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Receptionists</h4>
+                        </div>
+                    </div>
+                </a>
+                <a asp-controller="Home" asp-route-BranchName="@Model.Name" asp-action="Branch" asp-route-Worker="Waiter">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Waiters</h4>
+                        </div>
+                    </div>
+                </a>
+                <a asp-controller="Home" asp-route-BranchName="@Model.Name" asp-action="Branch" asp-route-Worker="Chef">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Chefs</h4>
+                        </div>
+                    </div>
+                </a>
+                <a asp-controller="Home" asp-route-BranchName="@Model.Name" asp-action="Branch" asp-route-Worker="Cachier">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="h4">Cachiers</h4>
+                        </div>
+                    </div>
+                </a>
+            }
+        }
+
+
+
+    </div>
+</div>

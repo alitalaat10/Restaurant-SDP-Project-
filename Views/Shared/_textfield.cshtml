@@ -1,0 +1,11 @@
+@{
+    var id = Model.id ?? Model.name;
+    var inputbase = new {type=Model.type};
+}
+
+
+    <div class="input-group mb-3">
+        <div class="form-floating">
+            @* @Html.RenderPartial("_inputbase", new {}, ViewData); *@
+        </div>
+    </div>

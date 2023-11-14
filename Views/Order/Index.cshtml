@@ -1,0 +1,94 @@
+@model List<design_pattern.Models.Meal.Order>
+@using design_pattern.Models.Tables
+@using design_pattern.Models.Meal
+@{
+    ViewData["title"] = "View Tables";
+}
+
+
+<div class="container pt-5">
+    @* <form class="row mb-5" style="gap:15px">
+        <div class="col-10">
+        <div class="d-flex" style="gap: 3rem;">
+        <div class="form-check">
+        <input class="form-check-input" name="availableOnly" checked="@ViewBag.availableOnly" value="true"
+        type="checkbox" id="availableTables">
+        <label class="form-check-label" for="availableTables">
+        Available Tables only
+        </label>
+        </div>
+        <div class="input-group" style="width: fit-content;">
+        <input class="form-control" style="padding-top:1.625rem" name="ReservationDate"
+        value="@ViewBag.ReservationDate" type="datetime-local" placeholder="ReservationDate" />
+        <label class="text-start position-absolute"
+        style="z-index: 3; opacity: .65; padding: 1rem 0; transform: scale(.85) translateY(-0.5rem)
+        translateX(0.15rem);">Date</label>
+        </div>
+        <div class="input-group" style="width: fit-content;">
+        <div class="form-floating">
+        <input class="form-control" name="Seats" value="@ViewBag.Seats" type="number"
+        placeholder="Seats" />
+        <label>Seats</label>
+        </div>
+        </div>
+        <div class="input-group" style="width: fit-content;">
+        <div class="form-floating">
+        <select class="form-select" name="pos" type="text" placeholder="Position">
+        <option class="empty-option"></option>
+        <option selected="@(ViewBag.pos == 0)" value="0">Indoor</option>
+        <option selected="@(ViewBag.pos == 1)" value="1">Outdoor</option>
+        </select>
+        <label>Position</label>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="col-1">
+        <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+        </form> *@
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Id</th>
+            <th>TotalPrice</th>
+            <th>Table</th>
+            <th>Reserved By</th>
+            <th>Reservation Date</th>
+            <th>Status</th>
+            <th>Controls</th>
+        </tr>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.Id</td>
+                <td>@d.TotalPrice EGP</td>
+                <td>#@d.Reservation.Table.Number - @d.Reservation.Table.Seats Seats - @(d.Reservation.Table.Position == PositionType.Indoor ? "Indoor" : "Outdoor")</td>
+                <td>@d.Reservation.CustomerName</td>
+                <td>@d.Reservation.Date</td>
+                <td>
+                    @{
+                        if(d.Status == OrderStatus.Waiting){
+                            <span>Waiting</span>
+                        }else if(d.Status == OrderStatus.Finished){
+                            <span>Customer Received Order</span>
+                        }
+                    }
+                </td>
+                <td>
+                    <div class="d-flex" style="gap: 15px">
+                        @{
+                            if(d.Status == OrderStatus.Waiting){
+                                <a class="btn btn-success" asp-action="FinishOrder" asp-controller="Order" asp-route-id="@d.Id"
+                                    asp-route-BranchName="@ViewBag.BranchName"
+                                >
+                                    Finish Order
+                                </a>
+                            }
+                        }
+                        
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

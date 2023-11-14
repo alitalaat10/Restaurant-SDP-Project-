@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Add Credit ";
+
+}
+
+<form class="text-center" asp-action="CreditCardPayment" asp-controller="Payments">
+    <div>
+        <h2 class="h2 mb-5"> CreditCard method</h2>
+        <div class="card text-center mb-5">
+            <div class="card-header">
+                Receipt
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Total Price <span style="font-weight: 900;">@ViewBag.Order.TotalPrice EGP</span>
+                </h5>
+                <p class="card-text">Please Confirm Your Payment</p>
+                <a asp-action="CashPayConfirm" asp-controller="Payments" asp-route-BranchName="@ViewBag.BranchName" asp-route-resId="@ViewBag.Res.Id" class="btn btn-primary">Confirm</a>
+                <a asp-action="Index" asp-controller="Reservation" asp-route-CheckOut="true" asp-route-BranchName="@ViewBag.BranchName" class="btn btn-warning">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+<script src="/js/menuItems.js"></script>
+}

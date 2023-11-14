@@ -1,0 +1,57 @@
+@model List<design_pattern.Models.Workers.Worker>;
+@using design_pattern.Models.Workers
+@{
+    ViewData["Title"] = "Workers List";
+}
+
+
+<div class="container pt-5">
+    <a asp-action="AddWorker" asp-controller="Workers" asp-route-BranchName="@ViewBag.BranchName"
+        class="mb-5 btn btn-info">Add new Worker </a>
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Salary</th>
+            <th>Type</th>
+            <th>Controls</th>
+        </tr>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.Id</td>
+                <td>@d.workerName</td>
+                <td>@d.salary</td>
+                <td>
+                    @{
+                        switch (d.Type)
+                        {
+                            case WorkerType.Chef:
+                                <span>Chef</span>
+                                break;
+                            case WorkerType.Manager:
+                                <span>Manager</span>
+                                break;
+                            case WorkerType.Receptionist:
+                                <span>Receptionist</span>
+                                break;
+                            case WorkerType.Waiter:
+                                <span>Waiter</span>
+                                break;
+                            case WorkerType.Cachier:
+                                <span>Cachier</span>
+                                break;
+                        }
+                    }
+                </td>
+                <td>
+                    <div class="d-flex" style="gap: 15px">
+                        <a class="btn btn-danger" asp-controller="Workers" asp-action="DeleteWorker" asp-route-BranchName="@ViewBag.BranchName" asp-route-id="@d.Id">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

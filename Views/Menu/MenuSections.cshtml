@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Menu";
+}
+
+
+
+<div class="container pt-5">
+    <a asp-action="AddMenuSection" asp-controller="Menu" asp-route-BranchName="@ViewBag.BranchName" class="btn btn-info mb-5">Add Menu Section</a>
+    <div class="row gy-5">
+        @foreach (var MenuSection in ViewBag.sections)
+        {
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">@MenuSection.Name</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        @foreach (var item in MenuSection.Items)
+                        {
+                            <li class="list-group-item">@item.Name - @item.Price EGP</li>
+                        }
+                    </ul>
+                    <div class="card-footer" style="background:transparent;">
+                        <a class="btn btn-primary" asp-action="EditMenuSection" asp-controller="Menu" asp-route-BranchName="@ViewBag.BranchName" asp-route-id="@MenuSection.Id">Edit</a>
+                        <a class="btn btn-danger" asp-action="DeleteMenuSection" asp-controller="Menu" asp-route-BranchName="@ViewBag.BranchName" asp-route-id="@MenuSection.Id">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

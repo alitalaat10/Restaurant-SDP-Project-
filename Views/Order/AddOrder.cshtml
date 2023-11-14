@@ -1,0 +1,52 @@
+@using System.Text.Json
+@{
+    @* var menuItems = JsonSerializer.Serialize(ViewBag.MenuItems); *@
+}
+
+<form asp-action="AddOrder" asp-controller="Order" asp-route-BranchName="@ViewBag.BranchName" method="post">
+
+    <div class="row gx-3 gy-5">
+        <h2 class="mb-5 text-center">Order</h2>
+        @for (int i = 0; i < ViewBag.Seats; i++)
+        {
+            <div class="col-12">
+                <fieldset class="form-group p-5 mx-auto order-items" data-meal="@i" data-count="1" style="border: 3px solid; border-radius: 10px; max-width: 60vw;">
+                    <legend class="h4 d-flex mb-5" style="gap: 30px;">
+                        Seat @(i+1)
+                        <button class="order-items-more btn btn-success" type="button">+</button>
+                    </legend>
+                    <div class="order-items-container">
+                        <div class="input-group mb-3 order-form-group" id="item-0">
+                            <div class="row w-100 align-items-center">
+                                <div class="col-11">
+                                    <div class="form-floating w-100">
+                                        <select class="form-select w-75 d-inline-block" name="Meals[@i][0]"
+                                        id="Worker">
+                                            <option class="empty-option" hidden></option>
+                                            @foreach (var item in ViewBag.MenuItems)
+                                            {
+                                                <option value="@item.Id">@item.Name - @item.Price EGP</option>
+                                            }
+                                            <label for="Worker">Item</label>
+                                        </select>
+                                        <label for="Worker">Choose Item From Menu</label>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <button class="order-items-remove btn btn-danger" type="button" data-target="#item-0">-</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        }
+        <div class="col-12 text-center mt-5 mb-5">
+            <button type="submit" class="btn btn-success">Save</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script src="/js/order-items.js"></script>
+}

@@ -1,0 +1,25 @@
+﻿@model List<design_pattern.Models.Branches.Branch>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Restuarant</h1>
+    <div class="container pt-5">
+        <div class="row gy-5 justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-6">
+                    <a href="/Branch/@item.Name">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">@item.Name</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

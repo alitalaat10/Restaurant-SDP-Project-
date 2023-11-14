@@ -1,0 +1,16 @@
+
+@{
+    if(Model.type == "textarea"){
+        <textarea class="form-control"></textarea>
+    }else if(Model.type == "select"){
+        <select class="form-select">
+            <option value="" class="empty-option" hidden></option>
+            @foreach (var option in (Model.options ?? new List<string>()))
+            {
+                <option value="@option.id">@option.name</option>
+            }
+        </select>
+    }else{
+        <input class="form-control">
+    }
+}

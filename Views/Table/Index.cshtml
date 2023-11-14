@@ -1,0 +1,111 @@
+@model List<design_pattern.Models.Tables.Table>
+@using design_pattern.Models.Tables
+@{
+    ViewData["title"] = "View Tables";
+    var now = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+
+<div class="container pt-5">
+    <a asp-action="AddTable" asp-controller="Table" asp-route-BranchName="@ViewBag.BranchName"
+        class="btn btn-info mb-5">Add Table</a>
+    <form class="row mb-5" style="gap:15px">
+        <div class="col-10">
+            <div class="d-flex" style="gap: 3rem;">
+                <div class="form-check">
+                    <input class="form-check-input" name="availableOnly" checked="@ViewBag.availableOnly" value="true"
+                        type="checkbox" id="availableTables">
+                    <label class="form-check-label" for="availableTables">
+                        Available Tables only
+                    </label>
+                </div>
+                <div class="input-group" style="width: fit-content;">
+                    <input class="form-control" style="padding-top:1.625rem" name="ReservationDate"
+                        value="@ViewBag.ReservationDate" type="datetime-local" placeholder="ReservationDate" min="@now" />
+                    <label class="text-start position-absolute"
+                        style="z-index: 3; opacity: .65; padding: 1rem 0; transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);">Date</label>
+                </div>
+                <div class="input-group" style="width: fit-content;">
+                    <div class="form-floating">
+                        <input class="form-control" name="Seats" value="@ViewBag.Seats" type="number"
+                            placeholder="Seats" />
+                        <label>Seats</label>
+                    </div>
+                </div>
+                <div class="input-group" style="width: fit-content;">
+                    <div class="form-floating">
+                        <select class="form-select" name="pos" type="text" placeholder="Position">
+                            <option class="empty-option"></option>
+                            <option selected="@(ViewBag.pos == 0)" value="0">Indoor</option>
+                            <option selected="@(ViewBag.pos == 1)" value="1">Outdoor</option>
+                        </select>
+                        <label>Position</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+            <button type="submit" class="btn btn-primary">Filter</button>
+            @* <button type="reset" class="btn btn-secondary">Reset</button> *@
+        </div>
+    </form>
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Number</th>
+            <th>Seats</th>
+            <th>Position</th>
+            @* <th>IsReserved</th>
+                <th>Reserved By</th>
+                <th>Reservation Date</th> *@
+            <th>Controls</th>
+        </tr>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.Number</td>
+                <td>@d.Seats</td>
+                <td>@(d.Position == @PositionType.Indoor ? "Indoor" : "Outdoor")</td>
+                @* <td>@(d.Reserved ? "Yes" : "No")</td> *@
+                @* <td>Customer</td>
+                    <td>Date</td> *@
+                <td>
+                    <div class="d-flex" style="gap: 15px">
+                        <a class="btn btn-success" asp-action="ReserveTable" asp-controller="Reservation" asp-route-TableId="@d.Number"
+                        asp-route-BranchName="@ViewBag.BranchName">
+                            <i class="bi bi-bookmark-check"></i>
+                        </a>
+                        <a class="btn btn-info" asp-action="EditTable" asp-controller="Table" asp-route-id="@d.Number"
+                        asp-route-BranchName="@ViewBag.BranchName">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a class="btn btn-danger" asp-action="DeleteTable" asp-controller="Table" asp-route-id="@d.Number"
+                        asp-route-BranchName="@ViewBag.BranchName">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    @* <div class="row gy-5">
+        @foreach (var MenuSection in ViewBag.sections)
+        {
+        <div class="col-lg-3 col-md-4 col-6">
+        <div class="card">
+        <div class="card-header">
+        <h5 class="card-title">@MenuSection.Name</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+        @foreach (var item in MenuSection.Items)
+        {
+        <li class="list-group-item">@item.Name - @item.Price EGP</li>
+        }
+        </ul>
+        <div class="card-footer" style="background:transparent;">
+        <a class="btn btn-primary" href="/Menu/MenuSections/@MenuSection.Id/Edit">Edit</a>
+        </div>
+        </div>
+        </div>
+        }
+        </div> *@
+</div>

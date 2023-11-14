@@ -1,0 +1,53 @@
+@model List<design_pattern.Models.Payments.PaymentRecord>
+@using design_pattern.Models.Payments
+@{
+    ViewData["title"] = "View Tables";
+}
+
+
+<div class="container pt-5">
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Id</th>
+            <th>Amount</th>
+            <th>Customer</th>
+            <th>Payment Type</th>
+            <th>Credit Card</th>
+            <th>CVV</th>
+            <th>Expire Date</th>
+        </tr>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.Id</td>
+                <td>@d.Amount EGP</td>
+                <td>@d.Name</td>
+                <td>
+                    @{
+                        if (d.Type == PaymentType.Cash)
+                        {
+                            <span>Cach</span>
+                        }
+                        else if (d.Type == PaymentType.Credit)
+                        {
+                            <span>Credit</span>
+                        }
+                        else if (d.Type == PaymentType.Check)
+                        {
+                            <span>Check</span>
+                        }
+
+                    }
+                </td>
+                <td>@d.CreditCard</td>
+                <td>@d.CVV</td>
+                <td>
+                    @if (d.Type == PaymentType.Check || d.Type == PaymentType.Credit)
+                    {
+                        <span>@d.DateOfExpire</span>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
